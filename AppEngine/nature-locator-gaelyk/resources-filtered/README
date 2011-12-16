@@ -1,0 +1,6 @@
+Local filtered resources.
+
+Any files placed in this folder will be copied to the corresponding place in the webapp
+during the packaging process with the params in filters applied.
+
+WEB-INF/appengine-web.xml must be present in the final package.

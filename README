@@ -1,0 +1,6 @@
+Nature Locator source code.
+
+AppEngine -- Google App Engine backend code. Provides endpoint for data
+submission, plus crowd-sourced image validation.
+
+Mobile client code to follow.

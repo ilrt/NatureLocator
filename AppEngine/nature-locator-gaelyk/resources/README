@@ -1,0 +1,5 @@
+Local static resources.
+
+Any files placed in this folder will be copied to the corresponding place in the webapp during the packaging process.
+
+WEB-INF/white-list.json contains a json array of appengine ids - the list of images to be validated. They are shown in the same order to each user.

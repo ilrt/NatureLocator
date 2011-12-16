@@ -1,0 +1,18 @@
+Google AppEngine Nature Locator App
+
+Provides:
+- endpoint for Nature Locator data submissions.
+- image validation webapp.
+
+Requirements:
+maven
+
+Configuration:
+Edit settings in resources-filtered/filters.
+Add static files to resources.
+
+Usage:
+mvn gae:unpack -- fetches the SDK
+mvn package -- builds
+mvn gae:run -- to run locally
+mvn gae:deploy -- to deploy to appengine

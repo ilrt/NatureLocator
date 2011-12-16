@@ -1,0 +1,78 @@
+body {
+	font-family: Avant Garde, Arial;
+	margin: 0px;
+	padding:0px;
+}
+
+h1 {
+	color: #D33381;
+	border-bottom: black 3px dotted;
+}
+
+.content 
+{
+	margin: 30px;
+}
+
+.header, .footer
+{
+	background-color: #eee;
+	text-align:center;
+}
+
+.footer
+{
+	font-size:80%;
+	padding:1em;
+}
+
+.header ul
+{
+	margin: 0px;
+	padding:5px;
+}
+
+
+.header ul li
+{
+	display:inline;
+	margin: 5px;
+	padding:5px;
+}
+
+table
+{
+	border:1px solid black;
+	border-collapse:collapse;
+}
+td
+{ 
+	border:1px solid #777;
+	padding:5px;
+}
+th
+{
+	border:1px solid #777;
+	background-color:#eee;
+}
+
+
+/* Forms */
+.help
+{ 
+	display:block;
+	color:#888; 
+	font-size:80%;
+}
+
+/* Report view */
+
+dt
+{
+	font-weight:bold;
+}
+dd
+{
+	margin-left:1em;
+	margin-bottom:1em;
+}
