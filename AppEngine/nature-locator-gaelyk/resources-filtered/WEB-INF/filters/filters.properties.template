@@ -1,0 +1,35 @@
+#
+# Properties to be included in web.xml and appengine-web.xml
+#
+# RENAME this file filters.properties
+#
+
+# Google AppEngine app name
+appname = 
+
+# validator string must match the validator string used by the data submission clients
+# see /common/www/scripts/vars.js
+validator = 
+
+# Google Maps API key
+gmaps.key = 
+
+# Google API key
+yahoo.key = 
+
+# space-separated list of the Gmail usernames of administrators
+admin.users = 
+
+# Third-party login providers
+
+# Google OAuth key and secret
+oauth.google.api.key = 
+oauth.google.api.secret = 
+
+# Facebook OAuth key and secret
+oauth.fb.api.key = 
+oauth.fb.api.secret = 
+
+# Twitter OAuth key and secret
+oauth.tw.api.key = 
+oauth.tw.api.secret = 
