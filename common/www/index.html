@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+
+    <title>Conker Tree Science: Leaf Watch</title>
+
+<style media="screen">
+@import "styles/jqtouch.css";
+</style>
+<style media="screen">
+@import "themes/naturelocator/theme.css";
+</style>
+
+<script src="scripts/jquery-1.5.2.min.js"></script>
+<script src="scripts/jqtouch.js"></script>
+<script src="scripts/phonegap.js"></script>
+<script src="scripts/jquery.resizecrop.js"></script>
+<script src="scripts/database.js"></script>
+<script src="scripts/vars.js"></script>
+<script src="scripts/en_gb.js"></script>
+<script src="scripts/core.js"></script>
+<script src="scripts/capture.js"></script>
+<script src="scripts/nl-jqt.js"></script>
+
+</head>
+<body id="jqt">
+
+<!-- Index page -->
+<div id="home">
+
+<div class="toolbar">
+<h1>Leaf Watch</h1>
+</div>
+
+<p>Help us to track the spread of the <strong>miner moth</strong> in
+the UK by recording the damage they do to <strong>conker (horse-chestnut)</strong> trees near you. We're interested in data from both <strong>damaged</strong>
+and <strong>undamaged</strong> trees.</p>
+
+<ul class="buttons">
+	<li><a class="greenButton can-tap" id="goNew" href="#new">Add
+	new record</a></li>
+	<li><a class="grayButton can-tap" id="goArchive" href="#archive">My
+	records<span id="pending-count" class="count"></span></a></li>
+	<li><a id="help-home" class="grayButton can-tap slideup"
+		href="#help"><img src="themes/naturelocator/img/icon-info.png"
+		alt="" width="22" height="22" /> Getting started guide</a></li>
+</ul>
+
+<p class="note small">For details of our privacy policy please see
+the 'Getting started guide'.</p>
+
+</div>
+<!-- /Index page -->
+
+<!-- New record page -->
+<div id="new">
+
+<div class="toolbar">
+<h1>New record</h1>
+<a class="btn left slideright" href="#home" id="new-cancel"><span>Cancel</span></a>
+<span class="inactive btn" id="new-send-inactive"><span>Send</span></span>
+<a style="display: none;" class="send btn" href="#" id="new-send"><span>Send</span></a>
+</div>
+
+<ul class="rounded">
+	<li class="arrow" id="addphoto"><a class="can-tap" id="new-photo"
+		href="#photo"> <span id="photo-image-blank" class="blankphoto"></span>
+	<span id="photo-image-span"></span> <span class="label" id="photo-text">Photo
+	of typical leaf</span> <span style="display: none" class="label"
+		id="photo-image-text">Change photo</span> </a></li>
+	<li class="arrow" id="adddamage"><a class="can-tap" href="#damage">
+	<span class="label">Damage rating</span> <span class="value"
+		id="damage-text-0" style="display: none;">0</span> <span class="value"
+		id="damage-text-1" style="display: none;">1</span> <span class="value"
+		id="damage-text-2" style="display: none;">2</span> <span class="value"
+		id="damage-text-3" style="display: none;">3</span> <span class="value"
+		id="damage-text-4" style="display: none;">4</span> <span class="value"
+		id="damage-text-unknown" style="display: none;">Don't know</span> </a></li>
+	<li class="arrow" id="addlocation"><a class="can-tap"
+		id="goLocation" href="#location"><span class="label">Location</span><span
+		class="value" id="location-text-latlng" style="display: none;"></span></a>
+	</li>
+	<li class="arrow"><a class="can-tap" href="#litter"> <span
+		class="label">Ground cover</span> <span
+		class="value litter-select-short litter-label" style="display: none;">Short
+	grass</span> <span class="value litter-select-long litter-label"
+		style="display: none;">Long grass</span> <span
+		class="value litter-select-scrub litter-label" style="display: none;">Scrub</span>
+	<span class="value litter-select-stone litter-label"
+		style="display: none;">Stone</span> <span
+		class="value litter-select-various litter-label"
+		style="display: none;">Various</span> <span
+		class="value litter-select-unlisted litter-label"
+		style="display: none;">Unlisted</span> </a></li>
+</ul>
+
+<ul class="edit rounded">
+	<li><input placeholder="Your email address (optional)"
+		onblur="saveEmail()" id='email' type='email' /></li>
+</ul>
+
+<ul class="buttons">
+	<li><a id="help-new" class="grayButton can-tap slideup"
+		href="#help"><img src="themes/naturelocator/img/icon-info.png"
+		alt="" width="22" height="22" /> Getting started guide</a></li>
+</ul>
+</div>
+<!-- /New record page -->
+
+<!-- Photo page -->
+<div id="photo">
+
+<div class="toolbar">
+<h1>Choose Source</h1>
+<a class="btn left slideright" href="#new"><span>Cancel</span></a></div>
+
+<ul class="buttons">
+	<li><a id="photo-take" class="grayButton" href="#">Take Photo</a></li>
+	<li><a id="photo-roll" class="grayButton" href="#">Photo Albums</a></li>
+</ul>
+
+</div>
+<!-- /Photo page -->
+
+<!-- Leaf litter page -->
+<div id="litter">
+
+<div class="toolbar">
+<h1>Ground cover</h1>
+<a class="btn left slideright" href="#new"><span>Cancel</span></a></div>
+
+<p>Take a look around underneath the canopy of the tree. What do you
+see?</p>
+
+<ul class="rounded">
+	<li><a class="can-tap" href="#" id="litter-select-short"><span><strong>Short
+	grass only</strong> (e.g. mown)</span></a></li>
+	<li><a class="can-tap" href="#" id="litter-select-long"><span><strong>Long
+	grass only</strong></span></a></li>
+	<li><a class="can-tap" href="#" id="litter-select-scrub"><span><strong>Scrub
+	or undergrowth</strong></span></a></li>
+	<li><a class="can-tap" href="#" id="litter-select-stone"><span><strong>Stone,
+	concrete or tarmac</strong></span></a></li>
+	<li><a class="can-tap" href="#" id="litter-select-various"><span><strong>A
+	mixture of any of the above</strong></span></a></li>
+	<li><a class="can-tap" href="#" id="litter-select-unlisted"><span><strong>None
+	of these things</strong></span></a></li>
+</ul>
+
+</div>
+<!-- /Leaf litter page -->
+
+<!-- Damage page -->
+<div id="damage">
+
+<div class="toolbar">
+<h1>Damage Rating</h1>
+<a class="btn left slideright" href="#new"><span>Cancel</span></a></div>
+
+<ul class="rounded">
+	<li><a id="damage-select-0" class="can-tap" href="#"> <img
+		id="damage-0" width="60" height="60"
+		src="themes/naturelocator/img/damage0.png" /> <span class="rating"><strong>0</strong>
+	&mdash; Leaf is completely green. No evidence of moth attack.</span> </a></li>
+	<li><a id="damage-select-1" class="can-tap" href="#"> <img
+		id="damage-1" width="60" height="60"
+		src="themes/naturelocator/img/damage1.png" /> <span class="rating"><strong>1</strong>
+	&mdash; Just a couple of whitish/brown patches on leaf.</span> </a></li>
+	<li><a id="damage-select-2" class="can-tap" href="#"> <img
+		id="damage-2" width="60" height="60"
+		src="themes/naturelocator/img/damage2.png" /> <span class="rating"><strong>2</strong>
+	&mdash; Whitish/brown area is smaller than green area.</span> </a></li>
+	<li><a id="damage-select-3" class="can-tap" href="#"> <img
+		id="damage-3" width="60" height="60"
+		src="themes/naturelocator/img/damage3.png" /> <span class="rating"><strong>3</strong>
+	&mdash; Roughly equal green and whitish/brown areas.</span> </a></li>
+	<li><a id="damage-select-4" class="can-tap" href="#"> <img
+		id="damage-4" width="60" height="60"
+		src="themes/naturelocator/img/damage4.png" /> <span class="rating"><strong>4</strong>
+	&mdash; Whitish/brown covers more than half of leaf.</span> </a></li>
+	<li><a id="damage-select-unknown" class="can-tap" href="#"> <img
+		id="damage-unknown" width="60" height="60"
+		src="themes/naturelocator/img/damage-unknown.png" /> <span
+		class="rating">Don't know.</span> </a></li>
+</ul>
+
+<ul class="buttons">
+	<li><a id="help-damage" class="grayButton can-tap slideup"
+		href="#help"><img src="themes/naturelocator/img/icon-info.png"
+		alt="" width="22" height="22" /> Getting started guide</a></li>
+</ul>
+
+
+</div>
+<!-- /Damage page -->
+
+<!-- Location page -->
+<div id="location">
+
+<div class="toolbar">
+<h1>Set location</h1>
+<a class="btn left slideright" href="#new"><span>Cancel</span></a></div>
+
+<div id="location-gps" style="display: none;">
+<div class="info">
+<h2><img src="themes/naturelocator/img/icon-tick-medium.png" alt=""
+	width="" height="" />Got your location</h2>
+<p>Your co-ordinates are:<br />
+<span class="value" id='location-coords'></span></p>
+
+<div class="map" id="location-map" style="display: none;"><img
+	id="location-static-map" alt="" width="260" height="150" /></div>
+
+<div class="map map-no-internet" id="location-no-map"
+	style="display: none;">
+<p>We can't show you a map right now, but we do have the
+co-ordinates for your position, so let's just use those.</p>
+</div>
+
+</div>
+<!-- /info -->
+
+<ul class="buttons">
+	<li><a id="location-gps-set" class="greenButton" href="#">Use
+	co-ordinates</a></li>
+	<li><a class="can-tap grayButton" href="#location-manual">Enter
+	location manually</a></li>
+</ul>
+</div>
+
+</div>
+<!-- /Location page -->
+
+<!-- Location manual page -->
+<div id="location-manual">
+
+<div class="toolbar">
+<h1>Set location</h1>
+<a class="btn left slideright" href="#new"><span>Cancel</span></a> <span
+	class="inactive btn" id="location-manual-set-inactive"><span>Set</span></span>
+<a style="display: none;" class="set btn right slideright"
+	id="location-manual-set" href="#"><span>Set</span></a></div>
+
+<p>We've not been successful in determining your location, so please
+enter it below instead. Include the postcode or nearest village/town <strong><em>and</em></strong>
+county.</p>
+
+<ul class="edit rounded">
+	<li><input onblur="updateLocationManualInput()"
+		oninput="updateLocationManualButton()"
+		placeholder="Postcode or place name" id='placename' type='text' /></li>
+</ul>
+
+<p><em>e.g. "BA1 3EY", "Compton Martin, Somerset"</em></p>
+
+</div>
+<!-- /Location manual page -->
+
+<!-- Send or save -->
+<!-- Switched off  
+<div id="send">
+	<div class="toolbar">
+        <h1>Send now or later?</h1>
+	</div>
+	<ul class="buttons">
+		<li><a class="greenButton" id="send-now" href="#">Send now</a></li>
+		<li><a class="grayButton" id="send-later" href="#">Save and send later</a></li>
+    </ul>
+</div>
+-->
+<!-- /Send or save -->
+
+
+<!-- Archive page -->
+<div id="archive">
+
+<div class="toolbar">
+<h1>My Records</h1>
+<a class="btn left slideright" href="#home"><span><img
+	src="themes/naturelocator/img/icon-backarr.png" alt="" height="12"
+	width="6" /> Home</span></a></div>
+
+<p id="archive-empty-text">To add a record, return to the home
+screen and tap 'Add new record'.</p>
+
+<ul class="rounded" id="archive-list" style="display: none">
+</ul>
+
+<ul id="archive-actions-buttons" class="buttons" style="display: none">
+	<li><a class="grayButton can-tap"
+		href="#archive-actions-delete-confirm">Clear list</a></li>
+</ul>
+
+</div>
+<!-- /Archive page -->
+
+
+<!-- Archive actions page -->
+<!-- Switched off
+<div id="archive-actions">
+
+	<div class="toolbar">
+        <h1>Unsent record</h1>
+		<a class="back btn left" href="#"><span>Cancel</span></a>
+	</div>
+
+	<ul class="buttons">
+		<li><a class="greenButton" id="archive-actions-send" href="#">Send</a></li>
+		<li><a class="redButton" href="#archive-actions-unsent-delete-confirm">Delete</a></li>
+    </ul>    
+
+</div>
+ -->
+<!-- /Archive actions page -->
+
+<!-- Archive actions unsent record delete page -->
+<!-- Switched off
+    <div id="archive-actions-unsent-delete-confirm">
+        
+        <div class="toolbar">
+            <h1>Are you sure?</h1>
+        </div>
+
+        <div class="info">
+            <p>Are you sure you want to delete this unsent record from your device? You will not be able to undo this action.</p>
+        </div>
+        
+        <ul class="buttons">
+            <li><a class="redButton slideright" id="archive-actions-unsent-delete" href="#">Yes, delete record</a></li>
+            <li><a class="grayButton back" href="#">Cancel</a></li>
+        </ul>    
+        
+    </div>
+    -->
+<!-- /Archive actions unsent record delete page -->
+
+<!-- Archive actions sent records delete page -->
+<!-- Switched off
+<div id="archive-actions-sent-delete-confirm">
+
+<div class="toolbar">
+<h1>Are you sure?</h1>
+</div>
+
+<div class="info">
+<p>Are you sure you want to clear your list of sent records? You
+will not be able to undo this action.</p>
+<p><strong>Note:</strong> this only affects the list on your device.
+It does not remove the records from our database.</p>
+</div>
+
+<ul class="buttons">
+	<li><a class="redButton slideright"
+		id="archive-actions-sent-delete" href="#">Yes, clear list</a></li>
+	<li><a class="grayButton back" href="#">Cancel</a></li>
+</ul>
+
+</div>
+-->
+<!-- /Archive actions unsent record delete page -->
+
+<!-- Archive actions records delete page -->
+<div id="archive-actions-delete-confirm">
+
+<div class="toolbar">
+<h1>Are you sure?</h1>
+</div>
+
+<div class="info">
+<p>Are you sure you want to clear your list of records? You will not
+be able to undo this action.</p>
+<p><strong>Note:</strong> this only affects the list on your device.
+Records you have already sent will remain in our database.</p>
+</div>
+
+<ul class="buttons">
+	<li><a class="redButton slideright" id="archive-actions-delete"
+		href="#">Yes, clear list</a></li>
+	<li><a class="grayButton slideright can-tap" href="#archive">Cancel</a></li>
+</ul>
+
+</div>
+<!-- /Archive actions records delete page -->
+
+<!-- Help page -->
+<div class="help" id="help">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a>
+</div>
+
+<p>You can send a report about any <a class="can-tap" target="_blank"
+	href="http://www.woodlands.co.uk/owning-a-wood/tree-identification/horse-chestnut.php">conker
+(horse-chestnut) tree</a> that you find in the UK. We are interested in
+trees with damage caused by the leaf-mining moth that has recently
+spread to Britain, as well as undamaged trees. You are welcome to submit
+as many records as you like throughout the summer, but please only
+create 1 record per tree per month.</p>
+
+<p>Creating a record involves taking a photo of a leaf using your
+device's camera, confirming your location, assigning a damage rating and
+recording what you see underneath the tree.</p>
+
+<ul class="pagination buttons">
+	<li class="next"><a class="grayButton can-tap" href="#help2">Next
+	&gt;</a></li>
+</ul>
+</div>
+<!-- /Help page -->
+
+<!-- Help page 2 -->
+<div class="help" id="help2">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<p>Take a photo of a leaf which you think is <strong>typical</strong>
+of the leaves <strong>near the bottom of the tree</strong>. Give it a
+damage score as shown on the 'damage rating' screen.</p>
+<img src="themes/naturelocator/img/leaf-example-positive.jpg"
+	alt="Leaf-mining moth damage" width="288" height="181" />
+<p class="imagelabel"><img
+	src="themes/naturelocator/img/icon-tick-16px.png" alt="" width="16"
+	height="16" /> <strong>Leaf-mining moth damage (damage rating
+= 2)</strong></p>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help">&lt;
+	Previous</a></li>
+	<li class="next"><a class="grayButton can-tap" href="#help3">Next
+	&gt;</a></li>
+</ul>
+
+</div>
+<!-- /Help page 2 -->
+
+<!-- Help page 3 -->
+<div class="help" id="help3">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<p>Leaves damaged by the leaf-mining moth are distinctive:</p>
+<ul class="basic">
+	<li>Mines start whitish with a brown spot and then turn brown.</li>
+	<li>Mines usually start away from the leaf edge and spread between
+	the veins, only rarely crossing the veins.</li>
+	<li>Often, a caterpillar or a brownish pupa can be seen in each
+	mine when the leaf is held up to the light.</li>
+	<li>From mid July, adult moths emerge. Their mines turn brown but
+	are identifiable by their shape and position. Fresh mines are often
+	present.</li>
+</ul>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help2">&lt;
+	Previous</a></li>
+	<li class="next"><a class="grayButton can-tap" href="#help4">Next
+	&gt;</a></li>
+</ul>
+
+</div>
+<!-- /Help page 3 -->
+
+<!-- Help page 4 -->
+<div class="help" id="help4">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<img src="themes/naturelocator/img/leaf-example-negative.jpg"
+	alt="Leaf blotch" width="288" height="185" />
+<p class="imagelabel"><img
+	src="themes/naturelocator/img/icon-cross-16px.png" alt="" width="16"
+	height="16" /> <strong>Leaf blotch caused by fungal infection
+&mdash; <em>not</em> the moth</strong></p>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help3">&lt;
+	Previous</a></li>
+	<li class="next"><a class="grayButton can-tap" href="#help5">Next
+	&gt;</a></li>
+</ul>
+
+</div>
+<!-- /Help page 4 -->
+
+<!-- Help page 5 -->
+<div class="help" id="help5">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<p>It is <strong>not</strong> the leaf-mining moth if:</p>
+<ul class="basic">
+	<li>Only the tips or edges of the leaf have shrivelled up and
+	turned brown (this might be damage to vessels carrying sap).</li>
+	<li>Patches are brown and edged with yellow (this might be fungal
+	infection).</li>
+</ul>
+
+<p class="note">More information about the project can be found on
+our Conker Tree Science website <a class="can-tap" target="_blank"
+	href="http://www.ourweboflife.org.uk">www.ourweboflife.org.uk</a>.</p>
+<p class="note small">Leaf blotch photo by David Glaves.</p>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help4">&lt;
+	Previous</a></li>
+	<li class="next"><a class="grayButton can-tap" href="#help6">Next
+	&gt;</a></li>
+</ul>
+
+</div>
+<!-- /Help page 5 -->
+
+<!-- Help page 6 -->
+<div class="help" id="help6">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<!-- DPA -->
+<h2>Privacy policy</h2>
+<p>The following sections explain how any personal data collected in
+the process of using this application will be stored and used.</p>
+<h3>E-mail address</h3>
+    <p>If you choose to supply the Conker Tree Science: Leaf Watch project with your
+e-mail address it will only be used in order to update you on the
+project's findings and future activities. You can opt out at any time by
+e-mailing us at <a class="can-tap" target="_blank"
+	href="mailto:conker-science@bristol.ac.uk?subject=Unsubscribe">conker-science@bristol.ac.uk</a>
+with the word 'unsubscribe' in the subject.</p>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help5">&lt;
+	Previous</a></li>
+	<li class="next"><a class="grayButton can-tap" href="#help7">Next
+	&gt;</a></li>
+</ul>
+
+</div>
+
+<!-- /Help page 6 -->
+
+<!-- Help page 7 -->
+<div class="help" id="help7">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<h3>Other information we collect</h3>
+<p>Your device's unique identification number will be
+collected. This is essential for verification of your records. It does not identify the device owner.</p>
+<p>All data collected will be stored on Google's app engine. Google
+have a <a class="can-tap" target="_blank"
+	href="http://www.google.com/intl/en/privacy/privacy-policy.html">data
+privacy statement</a>.</p>
+<h3>How long will my data be stored?</h3>
+<p>Your e-mail and device's unique identification number will be stored
+for the duration of the Conker Tree Science project.</p>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help6">&lt;
+	Previous</a></li>
+	<li class="next"><a class="grayButton can-tap" href="#help8">Next
+	&gt;</a></li>
+</ul>
+
+</div>
+
+<!-- /Help page 7 -->
+
+<!-- Help page 8 -->
+<div class="help" id="help8">
+
+<div class="toolbar">
+<h1>Getting started</h1>
+<a class="help-back can-tap slidedown btn left" href="#home"><span>Done</span></a></div>
+
+<h3>Who will have access to my personal data?</h3>
+    <p>No one outside of the Conker Tree Science: Leaf Watch project
+will have access to your personal data. If required by law data will not
+be made available to any third parties* unless:</p>
+<ul class="basic">
+	<li>They are directly related to the project and</li>
+	<li>We have first obtained your permission to do so</li>
+</ul>
+<p>* Third parties may include researchers and scientists from
+outside the project undertaking work on the horse-chestnut leaf miner
+moth.</p>
+
+<ul class="pagination buttons">
+	<li><a class="grayButton can-tap slideright" href="#help7">&lt;
+	Previous</a></li>
+</ul>
+
+</div>
+
+<!-- /Help page 8 -->
+
+
+<!--
+=====================system messages+================================================
+-->
+
+<!-- Success page -->
+<div id="success">
+
+<div class="toolbar">
+<h1>Success</h1>
+<a class="btn left slideright" href="#home"><span>Done</span></a></div>
+
+<div class="info success"><img
+	src="themes/naturelocator/img/icon-tick-large.png" alt="" width=""
+	height="" />
+<h2>Thank you!</h2>
+<p>Your record has been added to our database.</p>
+</div>
+
+<p>Remember, you can follow the progress of the project on our
+website at <a class="can-tap" target="_blank" href="http://www.ourweboflife.org.uk/">www.ourweboflife.org.uk</a>.</p>
+
+</div>
+
+<!-- Failure page -->
+<div id="failure">
+
+<div class="toolbar">
+<h1>Oops!</h1>
+<a class="btn left slideright" href="#home"><span>Done</span></a></div>
+
+<div class="info error"><img
+	src="themes/naturelocator/img/icon-transmit-large.png" alt="" width=""
+	height="" />
+<h2>No internet connection</h2>
+<p>Please try to re-submit this record later</p>
+</div>
+<p><strong>Note:</strong> you can try to re-submit a failed record
+by going to 'My records' from the home screen, and tapping a record to
+re-send it.</p>
+
+</div>
+
+<!-- Error page -->
+<div id="error">
+
+<div class="toolbar">
+<h1>Oops!</h1>
+<a class="btn left slideright" href="#new"><span>Done</span></a></div>
+
+<div class="info error"><img
+	src="themes/naturelocator/img/icon-qmark-large.png" alt="" width=""
+	height="" />
+<h2>Sorry, something went wrong</h2>
+<p>Please try to re-create this record</p>
+</div>
+
+</div>
+
+<!-- Send cancelled -->
+<div id="send-cancel">
+
+<div class="toolbar">
+<h1>Send cancelled</h1>
+<a class="btn left slideright" href="#home"><span>Done</span></a></div>
+
+<div class="info error"><img
+	src="themes/naturelocator/img/icon-transmit-large.png" alt="" width=""
+	height="" />
+<h2>Send cancelled</h2>
+<p>Please try to re-submit this record later</p>
+</div>
+<p><strong>Note:</strong> you can try to re-submit a failed record
+by going to 'My records' from the home screen, and tapping a record to
+re-send it.</p>
+
+</div>
+
+<!-- Pending send success page -->
+<div id="pending-success">
+
+<div class="toolbar">
+<h1>Success</h1>
+<a class="btn left slideright" href="#archive"><span>Done</span></a></div>
+
+<div class="info success"><img
+	src="themes/naturelocator/img/icon-tick-large.png" alt="" width=""
+	height="" />
+<h2>Thank you!</h2>
+<p>Your record has been added to our database.</p>
+</div>
+
+<p>Remember, you can follow the progress of the project on our
+website at <a class="can-tap" target="_blank" href="http://www.ourweboflife.org.uk/">www.ourweboflife.org.uk</a>.</p>
+
+</div>
+
+
+<!-- Pending send failure page -->
+<div id="pending-failure">
+
+<div class="toolbar">
+<h1>Oops!</h1>
+<a class="btn left slideright" href="#archive"><span>Done</span></a></div>
+
+<div class="info error"><img
+	src="themes/naturelocator/img/icon-transmit-large.png" alt="" width=""
+	height="" />
+<h2>No internet connection</h2>
+<p>Please try to re-submit this record later</p>
+</div>
+
+</div>
+
+<!-- Pending send error page -->
+<div id="pending-error">
+
+<div class="toolbar">
+<h1>Oops!</h1>
+<a class="btn left slideright" href="#archive"><span>Done</span></a></div>
+
+<div class="info error"><img
+	src="themes/naturelocator/img/icon-qmark-large.png" alt="" width=""
+	height="" />
+<h2>Sorry, something went wrong</h2>
+<p>Please try to re-create this record</p>
+</div>
+
+</div>
+
+<!-- Switched off  
+<div id="pending-delete-success">
+
+<div class="toolbar">
+<h1>Record deleted</h1>
+<a class="btn left slideright" href="#archive"><span>Done</span></a></div>
+
+<div class="info success"><img
+	src="themes/naturelocator/img/icon-tick-large.png" alt="" width=""
+	height="" />
+<h2>Unsent record deleted</h2>
+<p>The record has been deleted from your device.</p>
+</div>
+
+</div>
+-->
+
+<!-- Switched off  
+<div id="sent-delete-success">
+
+<div class="toolbar">
+<h1>List cleared</h1>
+<a class="btn left slideright" href="#archive"><span>Done</span></a></div>
+
+<div class="info success"><img
+	src="themes/naturelocator/img/icon-tick-large.png" alt="" width=""
+	height="" />
+<h2>Sent record list cleared</h2>
+<p>Your list of sent records has been cleared on your device.</p>
+</div>
+
+</div>
+-->
+
+<div id="delete-success">
+
+<div class="toolbar">
+<h1>List cleared</h1>
+<a class="btn left slideright" href="#archive"><span>Done</span></a></div>
+
+<div class="info success"><img
+	src="themes/naturelocator/img/icon-tick-large.png" alt="" width=""
+	height="" />
+<h2>Record list cleared</h2>
+<p>Your list of records has been cleared from your device.</p>
+</div>
+
+</div>
+
+<!-- Send later success page -->
+<!-- Switched off  
+<div id="send-later-success">
+
+<div class="toolbar">
+<h1>Record saved</h1>
+<a class="btn left slideright" href="#home"><span>Done</span></a></div>
+
+<div class="info success"><img
+	src="themes/naturelocator/img/icon-tick-large.png" alt="" width=""
+	height="" />
+<h2>Saved</h2>
+<p>Your record has been saved to be sent later.</p>
+</div>
+
+<p>Go to 'My records' from the home screen, and tap an unsent record
+to send it.</p>
+
+</div>
+-->
+
+<!--
+=====================popups================================================
+-->
+
+<!-- Sending popup -->
+<div id="sending" class="popup">
+<div>
+<div class="spinner"></div>
+<h2>Sending&hellip;</h2>
+<p>This could take up to 30 seconds</p>
+<a id="sending-cancel" class="blackButton" href="#">Give up</a></div>
+</div>
+<!-- /Sending popup -->
+
+<!-- Getting GPS popup -->
+<div id="locating" class="popup">
+<div>
+<div class="spinner"></div>
+<h2>Getting location&hellip;</h2>
+<p>This could take up to 2 minutes</p>
+<a id="locating-cancel" class="blackButton" href="#">Give up</a></div>
+</div>
+<!-- /Getting GPS popup -->
+
+</body>
+</html>

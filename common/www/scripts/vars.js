@@ -1,0 +1,42 @@
+/*
+ * Configuration settings
+ */
+
+
+/* ***************************
+ * This section must be edited
+ * ***************************
+ */
+
+/*
+ * String sent with each submission to confirm origin of data.
+ * Must match setting in AppEngine.
+ * See /AppEngine/nature-locator-gaelyk/resources-filtered/filters/filters.properties
+ */
+var VALIDATION = '';
+
+/*
+ * Submission endpoint. Insert your domain.
+ */
+var UPLOAD_ENDPOINT = "https://<your-appengine-domain>/reports/insert";
+
+
+/* *******************************************
+ * This section has defaults which can be left
+ * *******************************************
+ */
+
+/*
+ * Camera image quality
+ */
+var QUALITY = 20;
+
+/*
+ * Regex to validate email addresses client-side
+ */
+var EMAIL_REGEX = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+
+/*
+ * Numeric value to submit when user selects 'damage unknown' 
+ */
+var DAMAGE_UNKNOWN = -1;
