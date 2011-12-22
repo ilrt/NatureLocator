@@ -3,4 +3,9 @@ Nature Locator source code.
 AppEngine -- Google App Engine backend code. Provides endpoint for data
 submission, plus crowd-sourced image validation.
 
-Mobile client code to follow.
+common -- App files common to all mobile platforms
+ 
+Android -- Android specific build files (TBC)
+
+iOS -- iOS specific build files (TBC)
+
