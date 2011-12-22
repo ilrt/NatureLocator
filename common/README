@@ -1,3 +1,6 @@
-App files common to all mobile platforms
+HTML5, CSS3 and Javascript files common to all mobile platforms.
+The mobile builds use these files with the PhoneGap framework to produce hybrid apps for native deployment.
 
 See www/scripts/vars.js for local configuration
+
+www/index.html can be opened in a non-mobile browser though without complete functionality.
