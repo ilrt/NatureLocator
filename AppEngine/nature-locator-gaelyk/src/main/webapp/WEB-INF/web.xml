@@ -192,6 +192,6 @@
 	</security-constraint>
 	
 	<welcome-file-list>
-		<welcome-file>WEB-INF/pages/index.html</welcome-file>
+		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 </web-app>
