@@ -167,6 +167,7 @@ var litter = new Array();
 	SimpleDateFormat monthFormatter = new SimpleDateFormat("MMM");
 	SimpleDateFormat dayFormatter = new SimpleDateFormat("MMM dd");
 	Calendar rightNow = Calendar.getInstance();
+	rightNow.set(Calendar.YEAR, 2011);
 	int year = rightNow.get(Calendar.YEAR);
 
 	(6..11).each {
